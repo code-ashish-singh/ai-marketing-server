@@ -11,7 +11,7 @@ const adSetSchema = new mongoose.Schema({
     interests: [{ id: String, name: String }],
   },
   budget: { type: Number, required: true }, // in paise
-  budgetType: { type: String, enum: ["daily", "lifetime"], default: "daily" },
+  budgetType: { type: String, enum: ["daily", "weekly", "monthly", "lifetime"], default: "daily" },
   status: { type: String, enum: ["active", "paused", "deleted"], default: "paused" },
 });
 
@@ -50,7 +50,7 @@ const campaignSchema = new mongoose.Schema(
     googleAdGroupId:   { type: String, default: null },
     googleAdType:      { type: String, enum: ["search", "display", "youtube"], default: "search" },
     budget: { type: Number, required: true },
-    budgetType: { type: String, enum: ["daily", "lifetime"], default: "daily" },
+    budgetType: { type: String, enum: ["daily", "weekly", "monthly", "lifetime"], default: "daily" },
     startDate: { type: Date, default: null },
     endDate: { type: Date, default: null },
     adSets: [adSetSchema],

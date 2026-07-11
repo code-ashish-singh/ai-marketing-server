@@ -25,9 +25,11 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 // CORS
+const allowedOrigin = process.env.CLIENT_URL || "http://localhost:3000";
+console.log(`🔒 CORS Allowed Origin: ${allowedOrigin}`);
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: allowedOrigin,
     credentials: true,
   })
 );

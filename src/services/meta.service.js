@@ -53,10 +53,24 @@ const MetaService = {
   // ─── Ad Set ────────────────────────────────────────────────
   createAdSet: async (accessToken, adAccountId, payload) => {
     try {
+      let effectiveDailyBudget = payload.budget;
+      if (payload.budgetType === "weekly") {
+        effectiveDailyBudget = Math.round(payload.budget / 7);
+      } else if (payload.budgetType === "monthly") {
+        effectiveDailyBudget = Math.round(payload.budget / 30);
+      } else if (payload.budgetType === "lifetime") {
+        if (payload.startDate && payload.endDate) {
+          const days = Math.max(1, Math.ceil((new Date(payload.endDate) - new Date(payload.startDate)) / (1000 * 60 * 60 * 24)));
+          effectiveDailyBudget = Math.round(payload.budget / days);
+        } else {
+          effectiveDailyBudget = Math.round(payload.budget / 30);
+        }
+      }
+
       const { data } = await metaClient(accessToken).post(`/act_${adAccountId}/adsets`, {
         name: payload.name,
         campaign_id: payload.metaCampaignId,
-        daily_budget: payload.budget, // in paise (INR smallest unit)
+        daily_budget: effectiveDailyBudget, // in paise (INR smallest unit)
         billing_event: "IMPRESSIONS",
         optimization_goal: "REACH",
         status: "PAUSED",

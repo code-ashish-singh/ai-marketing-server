@@ -7,6 +7,7 @@ const router = Router();
 router.use(protect);
 
 router.post("/ad-copy",            checkCredits("adCopy"),             ctrl.generateAdCopy);
+router.post("/translate-ad-copy",  checkCredits("adCopy"),             ctrl.translateAdCopy);
 router.post("/strategy",           checkCredits("marketingStrategy"),  ctrl.generateStrategy);
 router.post("/seo-title",          checkCredits("seoTitle"),           ctrl.generateSEOTitle);
 router.post("/seo-description",    checkCredits("seoDescription"),     ctrl.generateSEODescription);

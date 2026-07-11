@@ -18,6 +18,12 @@ const AIService = {
     return parseJSON(result);
   },
 
+  translateAdCopy: async (input) => {
+    const { systemPrompt, prompt } = prompts.translateAdCopy(input);
+    const result = await aiProvider.complete(prompt, { systemPrompt });
+    return parseJSON(result);
+  },
+
   generateMarketingStrategy: async (input) => {
     const { systemPrompt, prompt } = prompts.marketingStrategy(input);
     const result = await aiProvider.complete(prompt, { systemPrompt, maxTokens: 2000 });

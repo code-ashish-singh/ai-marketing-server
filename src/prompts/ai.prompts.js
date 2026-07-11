@@ -16,6 +16,24 @@ Return JSON:
 }`,
   }),
 
+  translateAdCopy: ({ adCopy, targetLanguage }) => ({
+    systemPrompt: "You are an expert digital marketing localization specialist. Translate the provided ad copy into the requested language while maintaining the catchy marketing appeal, tone, and call-to-action. Return ONLY valid JSON.",
+    prompt: `Translate this ad copy into ${targetLanguage}:
+Headline: ${adCopy.headline}
+Primary Text: ${adCopy.primaryText}
+Description: ${adCopy.description}
+CTA: ${adCopy.cta}
+
+Return JSON:
+{
+  "headline": "...",
+  "primaryText": "...",
+  "description": "...",
+  "cta": "..."
+}`,
+  }),
+
+
   marketingStrategy: ({ business, goal, budget, targetAudience }) => ({
     systemPrompt: "You are a senior digital marketing strategist. Return ONLY valid JSON.",
     prompt: `Create a marketing strategy for:
