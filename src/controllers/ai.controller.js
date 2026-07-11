@@ -10,6 +10,7 @@ const handler = (fn) => async (req, res, next) => {
 };
 
 export const generateAdCopy = handler((body) => AIService.generateAdCopy(body));
+export const generateEmail = handler((body) => AIService.generateEmail(body));
 export const translateAdCopy = handler((body) => AIService.translateAdCopy(body));
 export const generateStrategy = handler((body) => AIService.generateMarketingStrategy(body));
 export const generateSEOTitle = handler((body) => AIService.generateSEOTitle(body));

@@ -58,6 +58,7 @@ import metaRoutes from "./routes/meta.routes.js";
 import aiRoutes from "./routes/ai.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
 import analyticsRoutes from "./routes/analytics.routes.js";
+import emailRoutes from "./routes/email.routes.js";
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/campaigns", campaignRoutes);
@@ -65,6 +66,14 @@ app.use("/api/meta", metaRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/analytics", analyticsRoutes);
+app.use("/api/emails", emailRoutes);
+
+// Background Jobs
+import cron from "node-cron";
+import EmailService from "./services/email.service.js";
+cron.schedule("* * * * *", () => {
+  EmailService.processEmailQueue();
+});
 
 // Health Check
 app.get("/api/health", (req, res) => {

@@ -6,12 +6,19 @@ const parseJSON = (text) => {
   try {
     const match = text.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
     return JSON.parse(match ? match[0] : text);
-  } catch {
+  } catch (error) {
+    console.error("parseJSON error:", error);
+    console.error("AI Response was:", text);
     throw new AppError("AI returned invalid response. Please try again.", 500);
   }
 };
 
 const AIService = {
+  generateEmail: async (input) => {
+    const { systemPrompt, prompt } = prompts.generateEmail(input);
+    const result = await aiProvider.complete(prompt, { systemPrompt });
+    return parseJSON(result);
+  },
   generateAdCopy: async (input) => {
     const { systemPrompt, prompt } = prompts.adCopy(input);
     const result = await aiProvider.complete(prompt, { systemPrompt });

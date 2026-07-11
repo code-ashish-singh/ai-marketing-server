@@ -1,4 +1,15 @@
 export const prompts = {
+  generateEmail: ({ prompt }) => ({
+    systemPrompt: "You are an expert email marketing copywriter. Write a highly professional, engaging, and conversion-focused email based on the user's rough idea. Output ONLY valid JSON containing the subject and HTML body. CRITICAL: You must escape all newlines in the HTML string as \\n, or avoid newlines entirely. Do not output literal newlines inside the JSON string.",
+    prompt: `Convert this rough idea into a professional email:
+Idea: "${prompt}"
+
+Return STRICT JSON:
+{
+  "subject": "Catchy Subject Line Here",
+  "body": "<div>Your professional HTML formatted email here...</div>"
+}`
+  }),
   adCopy: ({ product, audience, tone = "professional", cta = "Learn More" }) => ({
     systemPrompt: "You are an expert Meta Ads copywriter. Return ONLY valid JSON.",
     prompt: `Write a Meta ad copy for:
